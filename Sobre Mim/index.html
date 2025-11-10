@@ -572,13 +572,126 @@
         </ul>
       </div>
     </section>
+
+    <section id="recomendacoes" class="section recos">
+      <div class="container">
+        <h2 class="titles" style="text-align:center;margin-bottom:18px;">Recomendações</h2>
+    
+        <div class="reco-frame">
+          <div class="reco-photo">
+            <img id="reco-photo" src="reco1.jpg" alt="Foto de quem recomendou">
+          </div>
+    
+          <div class="reco-content">
+            <p class="reco-quote" id="reco-quote">
+              “Texto de recomendação. Ele pode ter algumas linhas falando sobre você, suas qualidades e o impacto do seu trabalho.”
+            </p>
+    
+            <div class="reco-person">
+              <div>
+                <strong class="reco-name" id="reco-name">Nome da Pessoa</strong>
+                <div class="reco-role" id="reco-role">Cargo / Empresa</div>
+              </div>
+          </div>
+    
+          <button class="reco-fab prev" aria-label="Anterior">‹</button>
+          <button class="reco-fab next" aria-label="Próximo">›</button>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
     <div class="container">
+
+      <p>Contato:    </p> <a href="https://www.instagram.com/pdmjulio_/" target="_blank"><img src="logo1.png" alt="" style="height: 30px; width: 30px;"></a> <a href=""><img src="logo2.png" alt="https://github.com/JulioPereiraGrilo" style="height: 30px; width: 30px;"></a> <a href="mailto:julio.menezes@germinare.org.br?subject=Contato%20pelo%20site&body=Olá%20Julio,%20tudo%20bem?"><img src="logo3.png" alt="E-mail" style="height: 30px; width: 30px; cursor: pointer;"></a>
       <p>© 2025 Julio — Todos os direitos reservados.</p>
     </div>
   </footer>
+  <script>
+    const RECS = [
+      {
+        photo: "peotta_recomendacao.png",
+        quote: "“O Julio é focado, aprende rápido e entrega com capricho. Trabalhar com ele é sempre tranquilo e produtivo. Me sinto privilegiado ao ser do mesmo grupo dele.”",
+        name: "Gabriel Peotta",
+        role: "CEO do Falgadja",
+      },
+      {
+        photo: "odete_recomendacao.png",
+        quote: "“Não sei quem é, mas deve ser um aluno bom.”",
+        name: "Maria Odete",
+        role: "Diretora Pedagógica — Germinare Tech",
+      },
+      {
+        photo: "atilla_reco.png",
+        quote: "“Passou no teste, mas não vai ganhar a raquete.”",
+        name: "Athyla Naoki",
+        role: "Professor e Jogador de Ping-Pong",
+      },
+      {
+        photo: "mark_reco.png",
+        quote: "“Very companheiro. Me helped to make the Facebook.”",
+        name: "Mark Zuckerberg",
+        role: "Criador do Facebook",
+      },
+      {
+        photo: "caio_reco.png",
+        quote: "“Trabalhar com o Julio é como ter um atalho para resultados de alto nível. Ele aprende em uma velocidade absurda, antecipa problemas antes de acontecerem e sempre entrega com um capricho raro — tudo organizado, pensado nos detalhes e com ótima apresentação. Tem postura, responsabilidade e uma calma que contagia o time. É curioso, pergunta o certo, busca referência, testa, melhora e volta com algo melhor do que foi pedido. Confiável, pontual e extremamente colaborativo, o Julio soma técnica, atitude e vontade de fazer acontecer. Se você quer alguém que eleve o padrão e simplifique a vida de todo mundo ao redor, é ele.” (Precisa de AVV para passar de ano)",
+        name: "Caio Amoroso",
+        role: "CEO do Zyntra",
+      }
+    ];
+  
+    const $photo = document.getElementById('reco-photo');
+    const $quote = document.getElementById('reco-quote');
+    const $name  = document.getElementById('reco-name');
+    const $role  = document.getElementById('reco-role');
+    const $logo  = document.getElementById('reco-logo');
+    const $dotsWrap = document.getElementById('reco-dots');
+  
+    let idx = 0;
+  
+    function renderDots(){
+      $dotsWrap.innerHTML = '';
+      RECS.forEach((_, i) => {
+        const b = document.createElement('button');
+        if (i === idx) b.setAttribute('aria-current', 'true');
+        b.addEventListener('click', () => { idx = i; render(); });
+        $dotsWrap.appendChild(b);
+      });
+    }
+  
+    function render(){
+      const r = RECS[idx];
+      $photo.src = r.photo;
+      $quote.textContent = r.quote;
+      $name.textContent  = r.name;
+      $role.textContent  = r.role;
+      $logo.src = r.logo;
+      renderDots();
+    }
+  
+    function next(){ idx = (idx + 1) % RECS.length; render(); }
+    function prev(){ idx = (idx - 1 + RECS.length) % RECS.length; render(); }
+  
+    document.querySelectorAll('.reco-btn.next, .reco-fab.next').forEach(b => b.addEventListener('click', next));
+    document.querySelectorAll('.reco-btn.prev, .reco-fab.prev').forEach(b => b.addEventListener('click', prev));
+  
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft')  prev();
+    });
+  
+    let startX = 0;
+    document.querySelector('.reco-frame').addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
+    document.querySelector('.reco-frame').addEventListener('touchend', (e)=>{
+      const dx = e.changedTouches[0].clientX - startX;
+      if (dx < -40) next();
+      if (dx >  40) prev();
+    }, {passive:true});
+  
+    render();
+  </script>
 </body>
 
 </html>
