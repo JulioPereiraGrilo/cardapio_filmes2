@@ -1,0 +1,43 @@
+header {
+    background-color: black;
+}
+
+main {
+    background-color: black;
+}
+
+#div2 {
+    display: flex;
+    justify-content: space-around;
+}
+
+#alex1 {
+    margin: 30px;
+    width: 50%;
+    height: 500px;
+}
+
+#div3 {
+    width: 50%;
+    margin: 10px;
+}
+
+#h11 {
+    color: red;
+    font-size: 30px;
+}
+
+h2 {
+    color: red;
+}
+
+footer {
+    text-align: center;
+    background-color: black;
+    color: red;
+    margin-top: 30px;
+}
+
+body {
+    background-color: black;
+}
